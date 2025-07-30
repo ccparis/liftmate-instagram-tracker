@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Performance Tracker 2025</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .account-section {
+            margin: 30px 25px;
+        }
+        
+        .account-title {
+            background: linear-gradient(45deg, #833ab4, #fd1d1d);
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+            border-radius: 10px;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 1400px;
+        }
+        
+        .data-table th {
+            background: #495057;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 11px;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .data-table th:first-child {
+            background: #343a40;
+            min-width: 150px;
+            text-align: left;
+            padding-left: 15px;
+        }
+        
+        .data-table .month-header {
+            background: linear-gradient(45deg, #17a2b8, #20c997);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            min-width: 90px;
+            font-size: 12px;
+        }
+        
+        .data-table .evolution-header {
+            background: #6c757d;
+            min-width: 80px;
+            font-size: 10px;
+        }
+        
+        .data-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+            border-right: 1px solid #dee2e6;
+            font-size: 12px;
+        }
+        
+        .data-table .metric-label {
+            background: #f8f9fa;
+            font-weight: 600;
+            text-align: left;
+            padding-left: 15px;
+            color: #495057;
+            border-right: 2px solid #dee2e6;
+        }
+        
+        .data-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 11px;
+            background: white;
+        }
+        
+        .data-table input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .data-table .comments-input {
+            min-width: 120px;
+            min-height: 35px;
+            resize: none;
+            text-align: left;
+            padding: 6px;
+        }
+        
+        .evolution-cell {
+            background: #e9ecef;
+            font-weight: 600;
+            color: #6c757d;
+            font-size: 11px;
+        }
+        
+        .evolution-positive {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .evolution-negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .evolution-neutral {
+            background: #e9ecef;
+            color: #6c757d;
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            padding: 20px;
+            margin: 20px 25px;
+            border-radius: 10px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .instructions h3 {
+            color: #495057;
+            margin: 0 0 15px 0;
+        }
+        
+        .instructions ul {
+            color: #6c757d;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .status {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 10px 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Instagram Performance Tracker 2025</h1>
+            <p>Complete tracking for @getliftmate and @liftmate_ • Mar 2025 - Feb 2026</p>
+        </div>
+        
+        <div class="controls">
+            <div class="status">
+                ✅ Data auto-saves every 30 seconds • Evolution % calculated automatically
+            </div>
+            <button class="btn" onclick="exportData()">💾 Export CSV</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 How to use this tracker:</h3>
+            <ul>
+                <li><strong>Fill white cells:</strong> Enter your monthly numbers in the input fields</li>
+                <li><strong>Evolution % auto-calculates:</strong> Gray cells show automatic growth/decline percentages</li>
+                <li><strong>All metrics tracked:</strong> Followers, gender %, posts, reels, stories, views, likes, comments, reach, engagement</li>
+                <li><strong>Notes column:</strong> Add campaign info, influencer collabs, special events</li>
+                <li><strong>Data persistence:</strong> Your entries are automatically saved in browser</li>
+                <li><strong>Export anytime:</strong> Click "Export CSV" to download your data</li>
+            </ul>
+        </div>
+        
+        <!-- @getliftmate Table -->
+        <div class="account-section">
+            <h2 class="account-title">@getliftmate</h2>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metrics</th>
+                            <th class="month-header">Mar 2025</th>
+                            <th class="month-header">Apr 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">May 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jun 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jul 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Aug 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Sep 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Oct 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Nov 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Dec 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jan 2026</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Feb 2026</th>
+                            <th class="evolution-header">Evo %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="getliftmate-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- @liftmate_ Table -->
+        <div class="account-section">
+            <h2 class="account-title">@liftmate_</h2>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metrics</th>
+                            <th class="month-header">Mar 2025</th>
+                            <th class="month-header">Apr 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">May 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jun 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jul 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Aug 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Sep 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Oct 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Nov 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Dec 2025</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Jan 2026</th>
+                            <th class="evolution-header">Evo %</th>
+                            <th class="month-header">Feb 2026</th>
+                            <th class="evolution-header">Evo %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="liftmate-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const months = ['Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025', 'Sep 2025', 'Oct 2025', 'Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026'];
+        
+        const metrics = [
+            { key: 'followers', label: 'Followers', type: 'number' },
+            { key: 'male_percent', label: 'Male %', type: 'percent' },
+            { key: 'female_percent', label: 'Female %', type: 'percent' },
+            { key: 'posts', label: '# Posts', type: 'number' },
+            { key: 'reels', label: '# Reels', type: 'number' },
+            { key: 'stories', label: '# Stories', type: 'number' },
+            { key: 'views', label: '# Views', type: 'number' },
+            { key: 'likes', label: '# Likes', type: 'number' },
+            { key: 'comments', label: '# Comments', type: 'number' },
+            { key: 'reach', label: '# Reach', type: 'number' },
+            { key: 'engagement', label: '# Engagement', type: 'number' },
+            { key: 'notes', label: 'Comments/Notes', type: 'text' }
+        ];
+        
+        let data = {
+            getliftmate: {},
+            liftmate: {}
+        };
+        
+        // Initialize data structure
+        ['getliftmate', 'liftmate'].forEach(account => {
+            months.forEach(month => {
+                data[account][month] = {};
+            });
+        });
+
+        function calculateEvolution(current, previous) {
+            if (!previous || previous === 0 || !current) return null;
+            return ((parseFloat(current) - parseFloat(previous)) / parseFloat(previous) * 100);
+        }
+
+        function formatEvolution(evolution) {
+            if (evolution === null || isNaN(evolution)) return '-';
+            return (evolution > 0 ? '+' : '') + evolution.toFixed(1) + '%';
+        }
+
+        function getEvolutionClass(evolution) {
+            if (evolution === null || isNaN(evolution)) return 'evolution-neutral';
+            if (evolution > 0) return 'evolution-positive';
+            if (evolution < 0) return 'evolution-negative';
+            return 'evolution-neutral';
+        }
+
+        function updateEvolution(account, metric, monthIndex) {
+            if (monthIndex === 0 || metric === 'notes') return;
+            
+            const current = data[account][months[monthIndex]][metric];
+            const previous = data[account][months[monthIndex - 1]][metric];
+            const evolution = calculateEvolution(current, previous);
+            
+            const evolutionCell = document.getElementById(`${account}-${metric}-${monthIndex}-evolution`);
+            if (evolutionCell) {
+                evolutionCell.textContent = formatEvolution(evolution);
+                evolutionCell.className = `evolution-cell ${getEvolutionClass(evolution)}`;
+            }
+        }
+
+        function createTableBody(account) {
+            const tbody = document.getElementById(`${account}-tbody`);
+            let html = '';
+            
+            metrics.forEach(metric => {
+                html += '<tr>';
+                html += `<td class="metric-label">${metric.label}</td>`;
+                
+                months.forEach((month, monthIndex) => {
+                    // Data input cell
+                    if (metric.type === 'text') {
+                        html += `<td><textarea class="comments-input" 
+                                 id="${account}-${metric.key}-${monthIndex}"
+                                 placeholder="Campaign notes..."
+                                 oninput="updateData('${account}', '${metric.key}', ${monthIndex}, this.value)"></textarea></td>`;
+                    } else {
+                        html += `<td><input type="number" 
+                                 id="${account}-${metric.key}-${monthIndex}"
+                                 placeholder="${metric.type === 'percent' ? '%' : '#'}"
+                                 oninput="updateData('${account}', '${metric.key}', ${monthIndex}, this.value)"
+                                 ${metric.type === 'percent' ? 'min="0" max="100" step="0.1"' : 'min="0" step="1"'}></td>`;
+                    }
+                    
+                    // Evolution cell (except for first month and notes)
+                    if (monthIndex > 0 && metric.type !== 'text') {
+                        html += `<td class="evolution-cell evolution-neutral" id="${account}-${metric.key}-${monthIndex}-evolution">-</td>`;
+                    }
+                });
+                
+                html += '</tr>';
+            });
+            
+            tbody.innerHTML = html;
+        }
+
+        function updateData(account, metric, monthIndex, value) {
+            data[account][months[monthIndex]][metric] = value;
+            
+            // Update evolution for current month
+            updateEvolution(account, metric, monthIndex);
+            
+            // Update evolution for next month if it exists
+            if (monthIndex < months.length - 1) {
+                updateEvolution(account, metric, monthIndex + 1);
+            }
+            
+            // Auto-save
+            localStorage.setItem('instagramTrackerData', JSON.stringify(data));
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('instagramTrackerData');
+            if (saved) {
+                try {
+                    data = JSON.parse(saved);
+                    
+                    // Populate form with saved data
+                    ['getliftmate', 'liftmate'].forEach(account => {
+                        metrics.forEach(metric => {
+                            months.forEach((month, monthIndex) => {
+                                const value = data[account][month][metric.key];
+                                if (value !== undefined && value !== '') {
+                                    const element = document.getElementById(`${account}-${metric.key}-${monthIndex}`);
+                                    if (element) {
+                                        element.value = value;
+                                        updateEvolution(account, metric.key, monthIndex);
+                                    }
+                                }
+                            });
+                        });
+                    });
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        }
+
+        function exportData() {
+            let csvContent = 'Instagram Performance Tracker Export\n';
+            csvContent += `Generated: ${new Date().toLocaleString()}\n\n`;
+            
+            ['@getliftmate', '@liftmate_'].forEach((accountName, accountIndex) => {
+                const account = accountIndex === 0 ? 'getliftmate' : 'liftmate';
+                
+                csvContent += `${accountName}\n`;
+                
+                // Header row
+                let headerRow = 'Metrics';
+                months.forEach((month, index) => {
+                    headerRow += `,${month}`;
+                    if (index > 0) headerRow += ',Evolution %';
+                });
+                csvContent += headerRow + '\n';
+                
+                // Data rows
+                metrics.forEach(metric => {
+                    let row = `"${metric.label}"`;
+                    months.forEach((month, monthIndex) => {
+                        const value = data[account][month][metric.key] || '';
+                        row += `,"${value}"`;
+                        
+                        if (monthIndex > 0 && metric.type !== 'text') {
+                            const current = data[account][month][metric.key];
+                            const previous = data[account][months[monthIndex - 1]][metric.key];
+                            const evolution = calculateEvolution(current, previous);
+                            row += `,"${formatEvolution(evolution)}"`;
+                        }
+                    });
+                    csvContent += row + '\n';
+                });
+                
+                csvContent += '\n';
+            });
+            
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Instagram_Performance_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize tables
+        function init() {
+            createTableBody('getliftmate');
+            createTableBody('liftmate');
+            loadSavedData();
+        }
+        
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            localStorage.setItem('instagramTrackerData', JSON.stringify(data));
+        }, 30000);
+        
+        // Initialize when page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
